@@ -6,7 +6,7 @@
     $config = $_GET['config'];
 
 
-    //$xml = remove_spaces_newLines($xml);
+    $xml = remove_spaces_newLines($xml);
 
     $xml = str_replace("<", "<!", $xml);
 
@@ -20,6 +20,8 @@
 
     $root = xml_array_to_tree($xml_tokens);
 
+
+    //var_dump($root);
     if($xml)
     {
         print_tree_emmet($root, -1, $config);

@@ -85,7 +85,7 @@
     function print_tree_xml($root, $depth, $options)
     {
         $root->split_tag();
-        $br = "<br>";
+        $br = "&#13;";
         if($root->tag != "" && $root->tag != "content")
         {
             if(count($root->children) == 0)
@@ -94,12 +94,12 @@
             }
             else
             {
-                $br = "<br>";
+                $br = "&#13;";
             }
             $depth += 1;
             for ($i=0; $i < $depth; $i++) 
             { 
-                echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+                echo "  ";
             }
             echo "&lt";
             if (count($root->namespaces) > 0 && $options['namespace'] == "true") 
@@ -143,7 +143,7 @@
             {
                 for ($i=0; $i < $depth+1; $i++) 
                 { 
-                    echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+                    echo "  ";
                 }
             }
             echo $root->content . $br;
@@ -161,7 +161,7 @@
             {
                 for ($i=0; $i < $depth; $i++) 
                 { 
-                    echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+                    echo "  ";
                 }
             }
             echo "&lt/";
@@ -172,7 +172,7 @@
                     echo $namespace . ":";
                 }
             }
-            echo $root->tag . "&gt<br>";
+            echo $root->tag . "&gt&#13;";
         }
     }
 
@@ -358,6 +358,22 @@
 
     function remove_spaces_newLines($str)
     {
+        $flag = false;
+        for ($i=0; $i < strlen($str); $i++)
+        { 
+            if($str[$i] == '<')
+            {
+                $flag = true;
+            }
+            if($str[$i] == '>')
+            {
+                $flag = false;
+            }
+            if($str[$i] == ' ' && $flag)
+            {
+                $str[$i] = '?';
+            }
+        }
         $pattern = '/\s*/m';
         $replace = '';
         
@@ -383,6 +399,15 @@
 
         for ($i=0; $i < $size; $i++) 
         { 
+            $temp = preg_replace('/\s+/', '', $array[$i]);
+            $temp = remove_spaces_newLines($array[$i]);
+            $content = str_replace("&nbsp;", "", $array[$i]);
+            $content = html_entity_decode($content);
+            if(strlen($content) == 0)
+            {
+                //echo "$i" . "&#13;";
+                continue;
+            }
             if(strlen($array[$i]) > 0)
             {
                 if($array[$i][0] == '!' && $array[$i][1] != '/')
@@ -390,7 +415,7 @@
                     $array[$i] = substr($array[$i], 1);
                     $child = new htmlNode();
                     
-                    $pattern = "/\s/";
+                    $pattern = "/\?/";
                     $temp = preg_split($pattern, $array[$i]);
                     if(count($temp) > 1)
                     {
@@ -412,7 +437,7 @@
                     if(count($temp) > 1)
                     {
                         $temp_id_token = $temp[1];
-                        $pattern = "/\s/";
+                        $pattern = "/\?/";
                         $temp_id = preg_split($pattern, $temp_id_token);
                         $temp2 = $temp_id[0];
                         $temp2 = substr($temp2, 1,-1);
@@ -428,7 +453,7 @@
                         $pattern = "/\"/";
                         $temp_id = preg_split($pattern, $temp_id_token);
                         $temp2 = $temp_id[1];
-                        $pattern = "/\s/";
+                        $pattern = "/\?/";
                         $temp_id = preg_split($pattern, $temp2);
                         foreach ($temp_id as $class)
                         {
@@ -436,7 +461,7 @@
                         }
                     }
 
-                    $pattern = "/\s/";
+                    $pattern = "/\?/";
                     $new_tag = preg_split($pattern, $array[$i]);
                     $child->tag = $new_tag[0];
                     $child->parent = $curr;

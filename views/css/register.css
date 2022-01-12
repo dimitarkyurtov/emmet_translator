@@ -19,6 +19,7 @@ body{
     top: 25%;
     position: relative;
     border-style: solid;
+    border-radius: 7px;
     border-width: 7px;
     border-color: white;
     background-color: rgb(34, 32, 32);
@@ -33,6 +34,7 @@ body{
     top: 25%;
     position: relative;
     border-style: solid;
+    border-radius: 7px;
     border-width: 5px;
     border-color: white;
     background-color: rgb(34, 32, 32);

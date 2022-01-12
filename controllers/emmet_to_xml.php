@@ -5,6 +5,7 @@
     $emmet = $_GET['code'];
     $config = $_GET['config'];
     
+    $emmet = remove_spaces_newLines($emmet);
 
     $emmet_tokens = tokenize_depth($emmet);
     $root = array_to_tree_empty_root($emmet_tokens);

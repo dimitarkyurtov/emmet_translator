@@ -1,8 +1,4 @@
 function interpretate(str, type){
-    console.log(str);
-
-    str = str.replace(/&nbsp;/, '');
-    str = str.replace(/\t/, '');
 
     $json = document.getElementById("config").value;
     $config = {};

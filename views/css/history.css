@@ -1,3 +1,8 @@
+body{
+    padding: 20px;
+    background-color: rgb(34, 32, 32);
+}
+
 div.scrollable {
     width: 100%;
     height: 100%;
@@ -8,12 +13,14 @@ div.scrollable {
 }
 
 td{
-    width: 130px;
+    width: 0%;
     height: 30px;
+    border-radius: 5px;
 }
 
 td,th{
-    border: 1px solid gray;
+    background-color: #f8f8f8;
+    border: 2px solid black;
     text-align: center;
     vertical-align: middle;
     padding: 5px;
@@ -24,7 +31,78 @@ th{
 }
 
 table{
+    margin-top: 20px;
     border-spacing: 0px;
+
 }
 
+/*
+.r{
+    padding: 7px;
+    height: 100px;
+    width: 69%;
+    background-color: rgb(236, 82, 55);
+    justify-content: center;
+    text-align: center;
+    display: table-cell;   
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+*/
 
+.r{
+    padding: 7px;
+    height: 100px;
+    width: 69%;
+    background-color: rgb(236, 82, 55);
+    /*
+    justify-content: center;
+    text-align: center;
+    display: table-cell;
+    */
+    text-align: center;
+    position: relative;
+    left: 15%;
+    border-radius: 5px;
+}
+
+.s{
+    width: 50%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 22%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.center{
+}
+
+.inner{
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+}
+
+.w{
+    font-size: 24px;
+    color: azure;
+}
+
+input{
+    margin-left: 10px;
+}
+
+.lim{
+    height: 30px;
+    border-radius: 5px;
+}
+
+button{
+    width: 16%;
+    height: 30px;
+    margin-left: 10px;
+    border-radius: 5px;
+}

@@ -77,6 +77,7 @@ function save(typee){
             config: $config
         },
         success: function(data){
+            document.getElementById("save_" + typee).style.visibility = "visible";
             document.getElementById("save_" + typee).innerHTML = data;
         }
     });

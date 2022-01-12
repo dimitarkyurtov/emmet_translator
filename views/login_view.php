@@ -33,15 +33,15 @@
 
                     
                     <div class="field2">
-                        <button class="field3 button_reg" type="button" onclick="register();"> Register </button>
-                    </div>
+                        <button class="field3 button_log" type="button" onclick="register();"> Register </button>
                         <?php
                             if(isset($_GET['error']))
                             {
                                 $error = $_GET['error'];
-                                echo "<p class=\"field2 error\">" . "$error" . "</p>";
+                                echo "<p class=\"error\">" . "$error" . "</p>";
                             }
                         ?>
+                    </div>
                 </form>
             </div>
         </div>

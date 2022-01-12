@@ -5,6 +5,12 @@
     $limit = $_GET['limit'];
     $emmet = $_GET['emmet'];
     $xml = $_GET['xml'];
+
+    if(!isset($_SESSION['id']))
+    {
+        header('Location: ../views/login_view.php?error=No session!');
+    }
+
     $user_id = $_SESSION['id'];
 
     $result = array();
@@ -51,7 +57,7 @@
         if($result || $result2)
         {
             echo "<table>";
-            echo "<tr><td>id</td><td>code</td><td>date</td><td>user_id</td><td>type</td><td>config</td></tr>";
+            echo "<tr><td>id</td><td>code</td><td>date</td><td>user_id</td><td>type</td><td>config</td><td></td></tr>";
             if($result)
             {
                 foreach ($result as $res)

@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="field2">
-                        <button class="field3" type="submit"> Register me! </button>
+                        <button class="field3 button_log" type="submit"> Register me </button>
                     </div>
                     <p id="error" class="error">        
                         <?php

@@ -10,16 +10,21 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="number" id="limit" name="limit" placeholder="Limit">
+    <div class="r">
+        <div class="s">
+        <input class="lim" type="number" id="limit" name="limit" placeholder="Limit">
 
-    <input type="checkbox" id="emmet" name="emmet" value="emmet">
-    <label for="emmet">emmet</label>
-        
-    <input type="checkbox" id="xml" name="xml" value="xml">
-    <label for="xml">xml</label>
+        <input type="checkbox" id="emmet" name="emmet" value="emmet">
+        <label class="w" for="emmet">emmet</label>
+            
+        <input type="checkbox" id="xml" name="xml" value="xml">
+        <label class="w" for="xml">xml</label>
 
-    <button type="submit" onclick="search()"> Search </button>
-
-    <p id="queries"></p>
+        <button type="submit" onclick="search()"> Search </button>
+        </div>
+    </div>
+    <div class="center">
+        <p class="inner" id="queries"></p>
+    </div>
 </body>
 </html>

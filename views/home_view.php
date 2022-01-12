@@ -69,31 +69,45 @@
     <br>
     <br>
     <br>
-    <input id="config" type="text" value=<?php echo "$config"?> >
+        <div class="config">
+            <h2>Configuration</h2>
+            <textarea class="dd textarea" id="config"  placeholder="Input"><?php echo $config;?></textarea>
+        </div>
     <br>
     <br>
     <div class="row">
-        <div class="col">
-            <textarea id="emmet"  onchange="interpretate(this.value, 'emmet');"><?php echo $emmet;?></textarea>
-            <textarea id="decoded"></textarea>
+        <div class="col col1">
+            <h2>Emmet to xml</h2>
+            <textarea  class="textarea" id="emmet"  onchange="interpretate(this.value, 'emmet');" placeholder="Input"><?php echo $emmet;?></textarea>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <textarea class="textarea" id="decoded" placeholder="Output"></textarea>
             <?php
                 if(isset($_SESSION['id']))
                 {
                     echo "<button onclick=\"save('emmet')\">Save</button>";
                 }
             ?>
-            <p id="save_emmet"></p>
+            <p id="save_emmet" class="w">s</p>
         </div>
-        <div class="col">
-            <textarea id="xml"  onchange="interpretate(this.value, 'xml');"><?php echo $xml;?></textarea>
-            <textarea id="decoded_2"></textarea>
+        <div class="col col2">
+            <h2>Xml to emmet</h2>
+            <textarea class="textarea" id="xml"  onchange="interpretate(this.value, 'xml');" placeholder="Input"><?php echo $xml;?></textarea>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <textarea class="textarea" id="decoded_2" placeholder="Output"></textarea>
             <?php
                 if(isset($_SESSION['id']))
                 {
                     echo "<button onclick=\"save('xml')\">Save</button>";
                 }
             ?>
-            <p id="save_xml"></p>
+            <br>
+            <p id="save_xml" class="w">s</p>
         </div>
     </div>
     <script>

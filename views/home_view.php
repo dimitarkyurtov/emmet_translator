@@ -71,7 +71,7 @@
     <br>
         <div class="config">
             <h2>Configuration</h2>
-            <textarea class="dd textarea" id="config"  placeholder="Input"><?php echo $config;?></textarea>
+            <textarea class="dd textarea" id="config"  placeholder="Input"><?php if($config)echo $config; else echo"{\"id\":\"true\", \"class\":\"true\", \"content\":\"true\", \"custom_attribute\":\"true\", \"namespace\":\"true\", \"history\":\"false\"}"?></textarea>
         </div>
     <br>
     <br>

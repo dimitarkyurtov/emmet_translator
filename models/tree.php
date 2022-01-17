@@ -37,6 +37,8 @@
 
         public function split_tag()
         {
+            $this->tag = str_replace('?', ' ', $this->tag);
+            $this->content = str_replace('?', ' ', $this->content);
             $temp = explode("#", $this->tag);
             if(count($temp) > 1)
             {
@@ -62,7 +64,23 @@
                 $temp2 = explode("}", $temp[1]);
                 $this->content = $temp2[0];
             }
-
+            
+            $flag = false;
+            for ($i=0; $i < strlen($this->tag); $i++)
+            { 
+                if($this->tag[$i] == '[')
+                {
+                    $flag = true;
+                }
+                if($this->tag[$i] == ']')
+                {
+                    $flag = false;
+                }
+                if($this->tag[$i] == '?' && $flag)
+                {
+                    $this->tag[$i] = ' ';
+                }
+            }
             $temp = explode("[", $this->tag);
             $size = count($temp);
             $sym = " ";

@@ -107,3 +107,8 @@ button{
   button{
     border-radius: 7px;
   }
+
+  .b_r{
+    position: relative;
+    left: 10px;
+  }

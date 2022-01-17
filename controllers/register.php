@@ -52,7 +52,7 @@
         if ($valid)
         {
 
-                $conn = connection("queries");
+                $conn = connection();
                 $stmt = $conn->prepare("INSERT INTO users (username, password, name) VALUES (?, ?, ?)");
                 $hashed_password = sha1($password);
                 $result = $stmt->execute([$username, $hashed_password, $name]);

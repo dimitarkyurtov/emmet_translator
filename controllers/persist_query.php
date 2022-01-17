@@ -4,7 +4,7 @@
     session_start();
 
 
-        $conn = connection("queries");
+        $conn = connection();
         $stmt = $conn->prepare("INSERT INTO queries (code, user_id, type, config) VALUES (?, ?, ?, ?)");
         $code = $_POST['code'];
         $type = $_POST['type'];

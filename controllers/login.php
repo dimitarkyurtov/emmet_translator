@@ -15,7 +15,7 @@
 
   function login($username, $password)
   {
-    $conn = connection("queries");
+    $conn = connection();
     $hashed_password = sha1($password);
     $query = $conn->prepare("SELECT * FROM users WHERE username=? and password=?") or die("failed!");
     $query->execute([$username, $hashed_password]);

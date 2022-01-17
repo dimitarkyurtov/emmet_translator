@@ -9,6 +9,7 @@
     <script src="js/ajax.js"></script>
     <title>Home</title>
 </head>
+</html>
 <body>
     <?php
         require_once("../controllers/db.php");
@@ -19,7 +20,7 @@
 
         if(isset($_GET['query_id']))
         {
-            $conn = connection("queries");
+            $conn = connection();
             $query = $conn->prepare("SELECT * FROM queries WHERE id=?") or die("failed!");
             $query->execute([$_GET['query_id']]);
             $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -71,14 +72,14 @@
     <br>
         <div class="config">
             <h2>Configuration</h2>
-            <textarea class="dd textarea" id="config"  placeholder="Input"><?php if($config)echo $config; else echo"{\"id\":\"true\", \"class\":\"true\", \"content\":\"true\", \"custom_attribute\":\"true\", \"namespace\":\"true\", \"history\":\"false\"}"?></textarea>
+            <textarea class="dd textarea" id="config"  placeholder="Input"><?php if($config)echo $config; else echo"{\"id\":\"true\", \"class\":\"true\", \"content\":\"true\", \"custom_attribute\":\"true\", \"namespace\":\"true\", \"comment\":\"false\", \"comment_delim\":\"/* */\", \"input_format\":\"false\", \"output_format\":\"false\", \"config_url\":\"false\", \"data_url\":\"false\", \"history\":\"false\"}"?></textarea>
         </div>
     <br>
     <br>
     <div class="row">
         <div class="col col1">
             <h2>Emmet to xml</h2>
-            <textarea  class="textarea" id="emmet"  onchange="interpretate(this.value, 'emmet');" placeholder="Input"><?php echo $emmet;?></textarea>
+            <textarea  class="textarea" id="emmet"  onchange="interpretate('emmet');" placeholder="Input"><?php echo $emmet;?></textarea>
             <br>
             <br>
             <hr>
@@ -90,22 +91,25 @@
                     echo "<button onclick=\"save('emmet')\">Save</button>";
                 }
             ?>
+            <button class="b_r" onclick="interpretate('emmet');">Apply</button>
+            <br>
             <p id="save_emmet" class="w">s</p>
         </div>
         <div class="col col2">
             <h2>Xml to emmet</h2>
-            <textarea class="textarea" id="xml"  onchange="interpretate(this.value, 'xml');" placeholder="Input"><?php echo $xml;?></textarea>
+            <textarea class="textarea" id="xml"  onchange="interpretate('xml');" placeholder="Input"><?php echo $xml;?></textarea>
             <br>
             <br>
             <hr>
             <br>
             <textarea class="textarea" id="decoded_2" placeholder="Output"></textarea>
-            <?php
-                if(isset($_SESSION['id']))
-                {
-                    echo "<button onclick=\"save('xml')\">Save</button>";
-                }
-            ?>
+                <?php
+                    if(isset($_SESSION['id']))
+                    {
+                        echo "<button onclick=\"save('xml')\">Save</button>";
+                    }
+                ?>
+                <button class="b_r" onclick="interpretate('xml');">Apply</button>
             <br>
             <p id="save_xml" class="w">s</p>
         </div>

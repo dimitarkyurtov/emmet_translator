@@ -109,6 +109,8 @@
                     echo $namespace . ":";
                 }
             }
+            $root->tag = str_replace("@", " ", $root->tag);
+            $root->tag = str_replace("?", " ", $root->tag);
             echo $root->tag;
             if($root->id && $options['id'] == "true")
             {
@@ -146,6 +148,8 @@
                     echo "  ";
                 }
             }
+            $root->content = str_replace("@", " ", $root->content);
+            $root->content = str_replace("?", " ", $root->content);
             echo $root->content . $br;
         }
         
@@ -179,6 +183,10 @@
     function print_tree_emmet($root, $depth, $options)
     {
         $root->split_namespace();
+        if(isset($options['lmao']) && $options['lmao'] == 'true')
+        {
+            $root->split_tag();
+        }
         $size = count($root->children);
         if($root->tag != "")
         {
@@ -193,6 +201,8 @@
             $depth += 1;
             if($root->tag == "content" && $options['content'] == "true")
             {
+                $root->content = str_replace("@", " ", $root->content);
+                $root->content = str_replace("?", " ", $root->content);
                 echo $root->content . $sym;
             }
             else
@@ -204,6 +214,8 @@
                         echo $namespace . ":";
                     }
                 }
+                $root->tag = str_replace("@", " ", $root->tag);
+                $root->tag = str_replace("?", " ", $root->tag);
                 echo $root->tag;
                 if($root->id && $options['id'] == "true")
                 {
@@ -235,11 +247,16 @@
             $br = '(';
             $br2 = ')';
         }
+        
         for ($i=0; $i < $size; $i++) 
         { 
-            if($i == $size-1)
+            if($i == 0)
             {
                 $sym = '';
+            }
+            else
+            {
+                $sym = '+';
             }
             if($root->children[$i]->tag == "content")
             {
@@ -255,9 +272,19 @@
                 $br = '(';
                 $br2 = ')';
             }
-            echo $br;
-            print_tree_emmet($root->children[$i], $depth, $options);
-            echo $br2 . $sym;
+
+            if(count($root->children) == 1 && $root->children[$i]->tag != "content")
+            {
+                $br = '';
+                $br2 = '';
+            }
+
+            if(!($root->children[$i]->tag == "" && count($root->children[$i]->children) == 0))
+            {
+                echo $sym . $br;
+                print_tree_emmet($root->children[$i], $depth, $options);
+                echo $br2;
+            }
         }
 
     }
@@ -356,16 +383,16 @@
         }
     }
 
-    function remove_spaces_newLines($str)
+    function remove_spaces_newLines_emmet($str)
     {
         $flag = false;
         for ($i=0; $i < strlen($str); $i++)
         { 
-            if($str[$i] == '<')
+            if($str[$i] == '<' || $str[$i] == '[')
             {
                 $flag = true;
             }
-            if($str[$i] == '>')
+            if($str[$i] == '>' || $str[$i] == ']')
             {
                 $flag = false;
             }
@@ -374,6 +401,158 @@
                 $str[$i] = '?';
             }
         }
+        for ($i=0; $i < strlen($str); $i++)
+        { 
+            if($str[$i] == '{')
+            {
+                $flag = true;
+            }
+            if($str[$i] == '}')
+            {
+                $flag = false;
+            }
+            if($str[$i] == ' ' && $flag)
+            {
+                $str[$i] = '?';
+            }
+        }
+        $pattern = '/\s*/m';
+        $replace = '';
+        
+        $message= $str;
+    
+        $removedLinebaksAndWhitespace = preg_replace( $pattern, $replace,$message);
+
+        return $removedLinebaksAndWhitespace;
+    }
+
+    function remove_spaces_newLines($str)
+    {
+        $flag = false;
+        for ($i=0; $i < strlen($str); $i++)
+        { 
+            if($str[$i] == '<' || $str[$i] == '[')
+            {
+                $flag = true;
+            }
+            if($str[$i] == '>' || $str[$i] == ']')
+            {
+                $flag = false;
+            }
+            if($str[$i] == ' ' && $flag)
+            {
+                $str[$i] = '?';
+            }
+        }
+        $flag = false;
+        for ($i=0; $i < strlen($str); $i++)
+        { 
+            if($str[$i] == '{')
+            {
+                $flag = true;
+            }
+            if($str[$i] == '}')
+            {
+                $flag = false;
+            }
+            if($str[$i] == ' ' && $flag)
+            {
+                $str[$i] = '?';
+            }
+        }
+        $pattern = '/\s*/m';
+        $replace = '';
+        
+        $message= $str;
+    
+        $removedLinebaksAndWhitespace = preg_replace( $pattern, $replace,$message);
+
+        return $removedLinebaksAndWhitespace;
+    }
+
+    function remove_spaces_newLines_xml($str)
+    {
+        $flag = false;
+        for ($i=0; $i < strlen($str); $i++)
+        { 
+            if($str[$i] == '<' || $str[$i] == '[')
+            {
+                $flag = true;
+            }
+            if($str[$i] == '>' || $str[$i] == ']')
+            {
+                $flag = false;
+            }
+            if($str[$i] == ' ' && $flag)
+            {
+                $str[$i] = '?';
+            }
+        }
+        $flag = false;
+        for ($i=0; $i < strlen($str); $i++)
+        { 
+            if($str[$i] == '{')
+            {
+                $flag = true;
+            }
+            if($str[$i] == '}')
+            {
+                $flag = false;
+            }
+            if($str[$i] == ' ' && $flag)
+            {
+                $str[$i] = '?';
+            }
+        }
+        $flag = false;
+        $flag2 = false;
+        $flag3 = false;
+        $ctr = 0;
+        for ($i=0; $i < strlen($str); $i++)
+        { 
+            if($str[$i] != " " && $str[$i] != "\n" && $str[$i] != "\t")
+            {
+                $flag3 = true;
+            }
+            if($str[$i] == '>')
+            {
+                $flag = true;
+                $flag3 = false;
+            }
+            if($str[$i] == '<')
+            {
+                $flag = false;
+            }
+            if($flag3 && $flag && $str[$i] == " ")
+            {
+                $str[$i] = '@';
+            }
+        }
+
+        $flag = false;
+        $flag2 = false;
+        $flag3 = false;
+        for ($i= strlen($str)-1; $i >= 0; $i--)
+        { 
+            if($str[$i] != "@" && $str[$i] != "\n" && $str[$i] != "\t")
+            {
+                $flag3 = true;
+            }
+            if($str[$i] == '<')
+            {
+                $flag = true;
+                $flag3 = false;
+            }
+            if($str[$i] == '>')
+            {
+                $flag = false;
+            }
+            if(!$flag3 && $flag && $str[$i] == "@")
+            {
+                $str[$i] = ' ';
+            }
+        }
+
         $pattern = '/\s*/m';
         $replace = '';
         

@@ -56,11 +56,15 @@ function interpretate(type){
     }
     if (typeof $config['ouput_result'] === 'undefined') 
     {
-        $config['ouput_result'] = "false";
+        $config['ouput_result'] = "ui";
     }
     if (typeof $config['callback_url'] === 'undefined') 
     {
         $config['callback_url'] = "false";
+    }
+    if (typeof $config['attribute'] === 'undefined') 
+    {
+        $config['attribute'] = "false";
     }
 
     if($config['history'] === "true" || $config['history'] === true)
@@ -109,7 +113,7 @@ function interpretate(type){
             type: "GET",
             async: false,
             success: function(data){
-                document.getElementById('config').innerHTML = data;
+                document.getElementById('config').value = data;
             }
         });
     }
@@ -121,20 +125,41 @@ function interpretate(type){
             type: "GET",
             async: false,
             success: function(data){
-                document.getElementById(type).innerHTML = data;
+                document.getElementById(type).value = data;
             }
         });
     }
 
     $.ajax({
         url: $url,
-        type: "GET",
+        type: "POST",
         data: {
             code: $str,
             config: $config
         },
         success: function(data){
-            document.getElementById($p_id).innerHTML = data;
+            
+            if($config['ouput_result'] == "ui")
+            {
+                 document.getElementById($p_id).innerHTML = data;
+            }
+            else if($config['ouput_result'] == "redirect_result" && $config['callback_url'] != "false")
+            {
+                console.log("here");
+                $.ajax({
+                    url: $config['callback_url'],
+                    type: "GET",
+                    async: false,
+                    data: {
+                        code: data,
+                    },
+                    success: function(data2){
+                        document.getElementById($p_id).innerHTML = data;
+                        document.getElementById("save_" + type).style.visibility = "visible";
+                        document.getElementById("save_" + type).innerHTML = "Sent";
+                    }
+                });
+            }
         }
     });
 }

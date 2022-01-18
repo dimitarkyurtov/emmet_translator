@@ -2,8 +2,8 @@
     require_once("../models/tree.php");
     require_once("utility.php");
 
-    $emmet = $_GET['code'];
-    $config = $_GET['config'];
+    $emmet = $_POST['code'];
+    $config = $_POST['config'];
 
     if($config['comment'] == "false")
     {
@@ -25,6 +25,13 @@
             }
         }
         $emmet = $new_emmet;
+    }
+    else
+    {
+        $comment_delims = explode(' ', $config['comment_delim']);
+
+        $emmet = str_replace($comment_delims[0], "", $emmet);
+        $emmet = str_replace($comment_delims[1], "", $emmet);
     }
 
     $emmet = remove_spaces_newLines_emmet($emmet);
@@ -48,5 +55,12 @@
     else
     {
         print_tree_xml($root, -1, $config);
+    }
+
+    if($config['attribute'] != 'false')
+    {
+        echo '&#10;';
+        echo '&#10;';
+        print_atr($root, $config['attribute'], "");
     }
 ?>

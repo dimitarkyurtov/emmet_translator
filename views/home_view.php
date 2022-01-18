@@ -72,7 +72,7 @@
     <br>
         <div class="config">
             <h2>Configuration</h2>
-            <textarea class="dd textarea" id="config"  placeholder="Input"><?php if($config)echo $config; else echo"{\"id\":\"true\", \"class\":\"true\", \"content\":\"true\", \"custom_attribute\":\"true\", \"namespace\":\"true\", \"comment\":\"false\", \"comment_delim\":\"/* */\", \"input_format\":\"false\", \"output_format\":\"false\", \"config_url\":\"false\", \"data_url\":\"false\", \"history\":\"false\"}"?></textarea>
+            <textarea class="dd textarea" id="config"  placeholder="Input"><?php if($config)echo $config; else echo"{\"id\":\"true\", \"class\":\"true\", \"content\":\"true\", \"custom_attribute\":\"true\", \"namespace\":\"true\", \"comment\":\"false\", \"comment_delim\":\"/* */\", \"input_format\":\"false\", \"output_format\":\"false\", \"config_url\":\"false\", \"data_url\":\"false\", \"ouput_result\": \"ui\", \"callback_url\": \"false\", \"attribute\": \"false\", \"history\":\"false\"}"?></textarea>
         </div>
     <br>
     <br>

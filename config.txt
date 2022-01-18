@@ -1,0 +1,1 @@
+{"id":"truee", "class":"true", "content":"true", "custom_attribute":"true", "namespace":"true", "comment":"true", "comment_delim":"/* */", "input_format":"false", "output_format":"emmet", "config_url":"false", "data_url":"false", "history":"false"}

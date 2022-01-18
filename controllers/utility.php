@@ -470,6 +470,71 @@
         return $removedLinebaksAndWhitespace;
     }
 
+    function print_atr($root, $atr, $path)
+    {
+        $new_path = $path;
+        if($root->tag && !$path)
+        {
+            $new_path = $root->tag;
+        }
+        else if($root->tag)
+        {
+            $new_path .= '.' . $root->tag;
+        }
+        if($atr == "id")
+        {
+            if($root->id)
+            {
+                echo $new_path . ' = ' . $root->id . '&#10;';
+            }
+        }
+        else if($atr == "class")
+        {
+            for ($i=0; $i < count($root->classes); $i++) 
+            {
+                echo $new_path . ' = ' . $root->classes[$i] . '&#10;';
+            }
+        }
+
+        
+        for ($i=0; $i < count($root->children); $i++) 
+        {
+            print_atr($root->children[$i], $atr, $new_path); 
+        }
+    }
+
+    function ignore_xml_header($str)
+    {
+        if(!$str)
+        {
+            return '';
+        }
+
+        $flag = false;
+
+
+        if($str[0] == '<')
+        {
+            if($str[1] == '!' || $str[1] == '?')
+            {
+                $flag = true;
+            }
+        }
+
+        $i = 0;
+        while($flag)
+        {
+            if($str[$i] == '>')
+            {
+                $flag = false;
+            }
+            $str[$i] = ' ';
+            $i ++;
+        }
+
+        return $str;
+    }
+
     function remove_spaces_newLines_xml($str)
     {
         $flag = false;

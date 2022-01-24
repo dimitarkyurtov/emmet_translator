@@ -130,6 +130,8 @@ function interpretate(type){
         });
     }
 
+    console.log($str);
+
     $.ajax({
         url: $url,
         type: "POST",

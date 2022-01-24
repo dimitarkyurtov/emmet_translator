@@ -1,3 +1,5 @@
+https://github.com/dimitarkyurtov/emmet_translator
+
 w15prj_KN_REQ_final - информация за проекта, как да се ползва и какво представлява.
 queries.sql - файла, който install.php използва, за да зареди базата
 install.php - скрипт, който зарежда тестова база с данните от /controllers/credentials.php
